@@ -83,7 +83,18 @@ def post_detail(request,pk):
     template = 'blog/post_detail.html'
     post = get_object_or_404(Post,pk=pk)
     comments = Comment.objects.filter(post__id=post.pk)
+    return render(request, template, {
+        'post':post,
+        'comments':comments,
+        'comment_form':None,
+        'new_comment':None,
+    })
 
+
+def comment_create(request,pk):
+    template_name = 'blog/post_detail.html'
+    post = get_object_or_404(Post,pk=pk)
+    comments = Comment.objects.filter(post__id=post.pk)
     new_comment = None
     if request.method == 'POST':    
         comment_form = CommentForm(data=request.POST)
@@ -97,13 +108,31 @@ def post_detail(request,pk):
 
     else:
         comment_form=CommentForm()
-        
-    return render(request, template, {
+         
+    return render(request, template_name,  {
         'post':post,
         'comments':comments,
         'new_comment':new_comment,
         'comment_form':comment_form,
     })
+
+def comment_update(request,pk1,pk2):
+    template_name = 'blog/post_detail.html'
+    comment = get_object_or_404(Comment, pk=pk2)
+    post = get_object_or_404(Post,pk=pk1)
+    comments = Comment.objects.filter(post__id=post.pk)
+    form = CommentForm(request.POST or None, instance=comment)
+    if form.is_valid():
+        form.save()
+        return redirect('post-detail',pk=pk1)
+   
+    return render(request, template_name,  {
+        'post':post,
+        'comments':comments,
+        'new_comment':comment,
+        'comment_form':form,
+    })
+
 def comment_delete(request,pk1,pk2):
     comment = Comment.objects.get(pk=pk2)
     comment.delete()
