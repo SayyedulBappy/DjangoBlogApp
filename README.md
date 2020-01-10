@@ -6,11 +6,11 @@ A blog application made with python django framework
 
 - user authentication and authorization
 - CRUD functionality for posts
-- comment system on posts
+- CRUD functionality for comment system on posts
 
 ## Description
 
-Users can create account and add new posts to the site and update and delete their posts. Users can add comments to any post and delete comments
+Users can create account and add new posts to the site and update and delete their posts. Users can add, edit and delete comments on posts
 
 ## What did I learn
 
