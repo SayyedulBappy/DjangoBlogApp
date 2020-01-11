@@ -4,7 +4,7 @@ A blog application made with python django framework
 
 ## Features
 
-- user authentication and authorization
+- user authentication and authorization with password reset functionality
 - CRUD functionality for posts
 - CRUD functionality for comment system on posts
 
